@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symbv Flask App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Online Bank Mini System</h1>
+            <ul>
+                <li><a href="/create">Create Account</a></li>
+                <li><a href="/transaction">Transactions</a></li>
+            </ul>
+        </nav>
+        <section>
+            <h2>Account Listing</h2>
+            <table class="accounts-table">
+                <thead>
+                    <tr><th>Account No</th><th>Holder Name</th><th>Balance</th><th>KYC Verified</th></tr>
+                </thead>
+                <tbody>
+                {% for acc in accounts %}
+                    <tr>
+                        <td>{{ acc.accountNo }}</td>
+                        <td>{{ acc.holderName }}</td>
+                        <td>{{ acc.balance }}</td>
+                        <td>{{ acc.isKYCVerified }}</td>
+                        <td>
+                            <form method="post" action="{{ url_for('remove_account', accountNo=acc.accountNo) }}" style="display:inline;">
+                                <button type="submit" onclick="return confirm('Are you sure you want to remove this account?');">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="messages">
+                {% for category, message in messages %}
+                  <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+        </section>
+        <footer>
+            <p>&copy; 2026 Online Bank Mini System</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction</title>
+</head>
+<head>
+    <title>Transactions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Online Bank Mini System</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/create">Create Account</a></li>
+            </ul>
+        </nav>
+        <section>
+            <h2>Deposit Money</h2>
+            <form method="post" action="/deposit" class="form-panel">
+                <label>Account No:</label>
+                <input type="text" name="accountNo" required><br>
+                <label>Amount:</label>
+                <input type="number" name="amount" required><br>
+                <button type="submit">Deposit</button>
+            </form>
+            <h2>Withdraw Money</h2>
+            <form method="post" action="/withdraw" class="form-panel">
+                <label>Account No:</label>
+                <input type="text" name="accountNo" required><br>
+                <label>Amount:</label>
+                <input type="number" name="amount" required><br>
+                <button type="submit">Withdraw</button>
+            </form>
+            <h2>Transfer Money</h2>
+            <form method="post" action="/transfer" class="form-panel">
+                <label>Sender Account:</label>
+                <input type="text" name="senderAccount" required><br>
+                <label>Receiver Account:</label>
+                <input type="text" name="receiverAccount" required><br>
+                <label>Amount:</label>
+                <input type="number" name="amount" required><br>
+                <button type="submit">Transfer</button>
+            </form>
+        <body>
+            <div class="table-container">
+                <h2>Transactions</h2>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.description }}</td>
+                            <td>{{ transaction.amount }}</td>
+                            <td>{{ transaction.type }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </body>
